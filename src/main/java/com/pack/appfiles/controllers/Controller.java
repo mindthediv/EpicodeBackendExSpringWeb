@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.pack.appfiles.common.Common;
 import com.pack.appfiles.models.Building;
+import com.pack.appfiles.models.Reservation;
 import com.pack.appfiles.models.User;
 import com.pack.appfiles.models.Workplace;
 import com.pack.appfiles.models.Workplace.type;
 import com.pack.appfiles.services.BuildingService;
+import com.pack.appfiles.services.ReservationService;
 import com.pack.appfiles.services.UserService;
 import com.pack.appfiles.services.WorkplaceService;
 
@@ -27,6 +29,8 @@ public class Controller {
     public BuildingService buildingService;
     @Autowired
     public WorkplaceService workplaceService;
+    @Autowired
+    public ReservationService reservationService;
     
     //GET RuleSet *****************
     @GetMapping("/ruleSet")
@@ -79,7 +83,20 @@ public class Controller {
     //POST
     @PostMapping(value = "/workplaces", consumes = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
     public String addPrivateWp(@RequestBody Workplace workplace){
-        workplace = workplaceService.createWorkplace(workplace.getDescription(), workplace.getType(), workplace.getMax_capacity());
+        workplace = workplaceService.createWorkplace(workplace.getDescription(), workplace.getType(), workplace.getMax_capacity(), workplace.getBuilding().getBuilding_id());
         return "added workplace: " + workplace.toString();
+    }   
+
+    //Reservations *******************
+    //GET
+    @GetMapping("/reservations/{id}")
+    public Reservation getReservation(@PathVariable long id){
+        return reservationService.findReservationById(id).get();
+    }
+    //POST
+    @PostMapping(value = "/reservations", consumes = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
+    public String addReservation(@RequestBody Reservation reservation){
+        reservation = reservationService.createReservation(reservation.getDate());
+        return "added workplace: " + reservation.toString();
     }   
 }

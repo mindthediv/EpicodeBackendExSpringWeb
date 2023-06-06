@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -27,16 +29,18 @@ public class Workplace {
     long workplace_id;
     String description;
     public enum type {PRIVATE,OPENSPACE,MEETING_ROOM} ; 
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     type type;
     @Column(nullable = true)
     int max_capacity;
-    // @ManyToOne
-    // Building building;
-    public Workplace(String description, com.pack.appfiles.models.Workplace.type type, int max_capacity) {
+    @ManyToOne
+    Building building;
+    public Workplace(String description,type type, int max_capacity, Building building) {
         this.description = description;
-        this.type = type;
         this.max_capacity = max_capacity;
+        this.building = building;
+        this.type = type;
     }
     
 }

@@ -13,6 +13,8 @@ import com.pack.appfiles.repositories.WorkplaceRepo;
 public class WorkplaceService {
     @Autowired
    private WorkplaceRepo workplaceRepo;
+    @Autowired
+   private BuildingService buildingService;
 
     public void saveWorkplace(Workplace u){
         workplaceRepo.save(u);
@@ -30,8 +32,9 @@ public class WorkplaceService {
         return workplaceRepo.findById(id);
     }
 
-    public Workplace createWorkplace(String d, type t, int c) {
-        Workplace workplace =  new Workplace(d,t,c);
+    public Workplace createWorkplace(String d,type t, int c, int id) { //NON FUNZIONA L'id (da fixare)
+        Optional<Building> b = buildingService.findBuildingById(id);
+        Workplace workplace =  new Workplace(d,t,c,b.get());
         workplaceRepo.save(workplace);
         return workplace;
     }
