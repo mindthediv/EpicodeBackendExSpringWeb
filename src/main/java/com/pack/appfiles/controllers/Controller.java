@@ -79,7 +79,7 @@ public class Controller {
     //POST
     @PostMapping(value = "/workplaces", consumes = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
     public String addPrivateWp(@RequestBody Workplace workplace){
-        workplace = workplaceService.createWorkplace("A private space", type.PRIVATE,2);
+        workplace = workplaceService.createWorkplace(workplace.getDescription(), workplace.getType(), workplace.getMax_capacity());
         return "added workplace: " + workplace.toString();
-    }
+    }   
 }
