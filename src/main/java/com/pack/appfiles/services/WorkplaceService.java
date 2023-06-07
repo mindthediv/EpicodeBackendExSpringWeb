@@ -3,7 +3,6 @@ package com.pack.appfiles.services;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.pack.appfiles.models.Building;
 import com.pack.appfiles.models.Workplace;
 import com.pack.appfiles.models.Workplace.type;
@@ -13,8 +12,6 @@ import com.pack.appfiles.repositories.WorkplaceRepo;
 public class WorkplaceService {
     @Autowired
    private WorkplaceRepo workplaceRepo;
-    @Autowired
-   private BuildingService buildingService;
 
     public void saveWorkplace(Workplace u){
         workplaceRepo.save(u);
@@ -32,19 +29,10 @@ public class WorkplaceService {
         return workplaceRepo.findById(id);
     }
 
-    public Workplace createWorkplace(String d,type t, int c, int id) { //NON FUNZIONA L'id (da fixare)
-        Optional<Building> b = buildingService.findBuildingById(id);
-        Workplace workplace =  new Workplace(d,t,c,b.get());
+    public Workplace createWorkplace(String d,type t, int c, Building b) { 
+        Workplace workplace =  new Workplace(d,t,c,b);
         workplaceRepo.save(workplace);
         return workplace;
     }
-
-    // public Workplace createOpenSpace(Office office ) {
-            // return openSpace.getObject();      
-    // }
-
-    // public Workplace createMeetingRoom(Office office ) {
-            // return meetingRoom.getObject();      
-    // }
 }
 

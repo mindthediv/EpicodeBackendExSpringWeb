@@ -17,25 +17,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "bookings")
+@Table(name = "reservation")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class Reservation {
     @Id
-    @SequenceGenerator(name = "bookings_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bookings_id")
+    @SequenceGenerator(name = "reservations_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservations_id")
     long booking_id;
     @Column(nullable = false)
     LocalDate date;
-    // @ManyToOne
-    // User user;
-    // @OneToOne
-    // Workplace workplace;
-    
+    @ManyToOne
+    User user;
+    @OneToOne
+    Workplace workplace;
+
+    public Reservation(LocalDate date, User user, Workplace workplace) {
+        this.date = date;
+        this.user = user;
+        this.workplace = workplace;
+    }
+
     public Reservation(LocalDate date) {
         this.date = date;
     }
+    
+    
 
 }

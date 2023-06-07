@@ -1,5 +1,6 @@
 package com.pack.appfiles.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -34,7 +35,7 @@ public class Workplace {
     type type;
     @Column(nullable = true)
     int max_capacity;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     Building building;
     public Workplace(String description,type type, int max_capacity, Building building) {
         this.description = description;

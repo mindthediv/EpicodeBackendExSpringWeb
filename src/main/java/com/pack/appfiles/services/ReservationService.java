@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.pack.appfiles.models.Reservation;
+import com.pack.appfiles.models.User;
+import com.pack.appfiles.models.Workplace;
 import com.pack.appfiles.repositories.ReservationRepo;
 
 @Service
@@ -34,8 +36,8 @@ public class ReservationService {
         return reservation;   
     }
 
-    public Reservation createReservation(LocalDate date) {
-        Reservation reservation = new Reservation(date);
+    public Reservation createReservation(LocalDate d, User u, Workplace wp ) {
+        Reservation reservation = new Reservation(d, u, wp);
         reservationRepo.save(reservation);
         return reservation;   
     }

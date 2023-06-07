@@ -1,10 +1,13 @@
 package com.pack.appfiles.models;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,8 +32,10 @@ public class User {
     String full_name;
     @Column(unique = true, nullable = false)
     String email;
-    // @OneToMany(mappedBy = "booking_id", fetch = FetchType.EAGER)
-    // List<Booking> user_bookings;
+    @OneToMany(mappedBy = "user")
+    List<Reservation> user_reservations;
+
+
     public User(String username, String full_name, String email) {
         this.username = username;
         this.full_name = full_name;

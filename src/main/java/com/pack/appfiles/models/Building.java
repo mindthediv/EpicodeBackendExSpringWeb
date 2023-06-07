@@ -2,8 +2,6 @@ package com.pack.appfiles.models;
 
 
 import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +32,7 @@ public class Building {
     String address;
     @Column(nullable = true)
     String name ;
-    @OneToMany(mappedBy = "building", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "building")
     List<Workplace> workplaces_list;
 
     public Building(String city, String address) {
