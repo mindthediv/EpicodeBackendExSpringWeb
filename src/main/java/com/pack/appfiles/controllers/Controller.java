@@ -1,7 +1,10 @@
 package com.pack.appfiles.controllers;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,9 +71,25 @@ public class Controller {
     }
     //PUT
     @PutMapping("/users/{id}")
-    public String putUser(@PathVariable long id, @RequestBody User user){
-        userService.updateUser(user);
-        return "added user: " + user.toString();
+    public ResponseEntity<?> putUser(@PathVariable long id, @RequestBody Optional<User> userDto) throws Exception{
+        Optional<User> optUser = userService.findUserById(id);
+        if (optUser.isPresent()){
+            User u = optUser.get();
+            if(!userDto.get().getEmail().equals(null)){
+            u.setEmail(userDto.get().getEmail());
+            }
+            if(!userDto.get().getFull_name().equals(null)){
+            u.setFull_name((userDto.get().getFull_name()));
+            }
+            if(!userDto.get().getUsername().equals(null)){
+            u.setUsername(userDto.get().getUsername());
+            }
+            userService.updateUser(u);
+            System.out.println("updated user: "+ u.toString());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     //POST
     @PostMapping(value = "/users")
@@ -113,11 +132,12 @@ public class Controller {
     }
     //POST
     @PostMapping(value = "/reservations/{user_id}")
-    public String addReservation(@RequestBody Reservation reservation,@PathVariable long user_id, @RequestParam long workplace_id){
+    public ResponseEntity<?> addReservation(@RequestBody Reservation reservation,@PathVariable long user_id, @RequestParam long workplace_id) throws Exception{
         reservation = reservationService
         .createReservation(reservation.getDate(),
         userService.findUserById(user_id).get(),
         workplaceService.findWorkplaceById(workplace_id).get());
-        return "added workplace: " + reservation.toString();
+        System.out.println("added reservation: " + reservation.toString()); 
+        return ResponseEntity.ok().build();
     }   
 }

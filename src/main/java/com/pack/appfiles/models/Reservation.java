@@ -2,6 +2,7 @@ package com.pack.appfiles.models;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "reservation")
+@Table(name = "reservations")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -31,7 +32,7 @@ public class Reservation {
     LocalDate date;
     @ManyToOne
     User user;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     Workplace workplace;
 
     public Reservation(LocalDate date, User user, Workplace workplace) {
