@@ -37,6 +37,7 @@ public class Workplace {
     int max_capacity;
     @ManyToOne(cascade = CascadeType.MERGE)
     Building building;
+    
     public Workplace(String description,type type, int max_capacity, Building building) {
         this.description = description;
         this.max_capacity = max_capacity;
