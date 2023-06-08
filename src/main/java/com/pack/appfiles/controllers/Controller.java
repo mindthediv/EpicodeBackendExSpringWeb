@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.pack.appfiles.common.Common;
 import com.pack.appfiles.models.Building;
 import com.pack.appfiles.models.Reservation;
@@ -132,12 +133,11 @@ public class Controller {
     }
     //POST
     @PostMapping(value = "/reservations/{user_id}")
-    public ResponseEntity<?> addReservation(@RequestBody Reservation reservation,@PathVariable long user_id, @RequestParam long workplace_id) throws Exception{
+    public String addReservation(@RequestBody Reservation reservation,@PathVariable long user_id, @RequestParam long workplace_id) throws Exception{
         reservation = reservationService
         .createReservation(reservation.getDate(),
         userService.findUserById(user_id).get(),
         workplaceService.findWorkplaceById(workplace_id).get());
-        System.out.println("added reservation: " + reservation.toString()); 
-        return ResponseEntity.ok().build();
+        return "added reservation: " + reservation.toString(); 
     }   
 }

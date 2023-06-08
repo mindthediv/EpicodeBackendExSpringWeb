@@ -2,14 +2,12 @@ package com.pack.appfiles.models;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -32,7 +30,7 @@ public class Reservation {
     LocalDate date;
     @ManyToOne
     User user;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     Workplace workplace;
 
     public Reservation(LocalDate date, User user, Workplace workplace) {
@@ -44,7 +42,5 @@ public class Reservation {
     public Reservation(LocalDate date) {
         this.date = date;
     }
-    
-    
 
 }
