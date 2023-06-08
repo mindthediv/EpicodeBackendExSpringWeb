@@ -129,6 +129,8 @@ public class Controller {
     //GET
     @GetMapping("/reservations/{id}")
     public Reservation getReservation(@PathVariable long id){
+        System.out.println(reservationService.findReservationById(id).get().getWorkplace());
+        System.out.println(reservationService.findReservationById(id).get().getUser());
         return reservationService.findReservationById(id).get();
     }
     //POST

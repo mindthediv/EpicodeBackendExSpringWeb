@@ -5,5 +5,5 @@ import com.pack.appfiles.models.Reservation;
 
 
 public interface ReservationRepo extends JpaRepository<Reservation, Long> {
-    
+
 }

@@ -16,14 +16,16 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "workplaces")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Workplace {
     @Id
@@ -47,6 +49,13 @@ public class Workplace {
         this.max_capacity = max_capacity;
         this.building = building;
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Workplace [workplace_id=" + workplace_id + ", description=" + description + ", type=" + type
+                + ", max_capacity=" + max_capacity + ", building=" + building + ", workplace_reservations="
+                + workplace_reservations + "]";
     }
     
 }
