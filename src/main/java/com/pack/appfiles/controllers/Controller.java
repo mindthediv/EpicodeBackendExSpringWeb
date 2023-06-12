@@ -141,5 +141,11 @@ public class Controller {
         userService.findUserById(user_id).get(),
         workplaceService.findWorkplaceById(workplace_id).get());
         return "added reservation: " + reservation.toString(); 
-    }   
+    }  
+    
+    //HOME
+    @GetMapping("/home")
+    public String page() {
+        return "bohboh";
+    }
 }
